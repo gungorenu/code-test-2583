@@ -1,5 +1,6 @@
 namespace api
 {
+    using api.Services;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.Extensions.Configuration;
@@ -34,6 +35,13 @@ namespace api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            // dependency injection stuff, straighforward, no magic needed
+            services.AddScoped<IWebClient, api.Services.Implementations.WebClient>();
+            services.AddScoped<IConversionService, api.Services.Implementations.ConversionService>();
+            services.AddScoped<IExchangeRateService, api.Services.Implementations.ExchangeRateService>();
+            services.AddScoped<IAccountService, api.Services.Implementations.AccountService>();
+            services.AddScoped<ITransactionService, api.Services.Implementations.TransactionService>();
         }
     }
 }

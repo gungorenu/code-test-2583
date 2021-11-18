@@ -1,6 +1,5 @@
 ﻿using api.Models;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -37,18 +36,19 @@ namespace api.Services.Implementations
             if (exchangeRate == null)
                 throw new InvalidOperationException("Service Initialization failed");
 
-            var currencyInfo = exchangeRate.Currencies.FirstOrDefault(f => f.Name == currency);
-            if (currencyInfo == null)
-                throw new ArgumentException("Currency not found");
-
             // I am not checking _accountService == null, no way of setting null
             var account = await _accountService.GetAccount();
             if (account == null)
                 throw new InvalidOperationException("Account not found");
 
+            // UPDATE AFTER TASK #2 : I think I misunderstood. the currency rate is always fixed at system and conversion service shall change rates if it is not fixed one
             // we need to update balance values because of currency difference
             if (currency != account.Currency)
             {
+                var currencyInfo = exchangeRate.Currencies.FirstOrDefault(f => f.Name == currency);
+                if (currencyInfo == null)
+                    throw new ArgumentException("Currency not found");
+
                 UpdateBalanceDueToCurrencyChange(account, currencyInfo);
             }
 
