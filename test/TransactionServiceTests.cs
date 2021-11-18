@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using api.Models;
 using api.Services;
+using api.Services.Implementations;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace apitests
@@ -19,7 +20,7 @@ namespace apitests
 
         private ITransactionService CreateTransactionService()
         {
-            return null;
+            return new TransactionService();
         }
 
         [TestMethod]

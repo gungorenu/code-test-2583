@@ -34,7 +34,7 @@ namespace api.Services.Implementations
             // I am not checking _exchangeService == null, no way of setting null
             var exchangeRate = await _exchangeService.GetExchangeRate();
             if (exchangeRate == null)
-                throw new InvalidOperationException("Service Initialization failed");
+                throw new InvalidOperationException("Exchange rate not found");
 
             // I am not checking _accountService == null, no way of setting null
             var account = await _accountService.GetAccount();
