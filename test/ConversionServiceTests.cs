@@ -1,6 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using api.Services;
+using api.Services.Implementations;
 using apitests.Mocks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -23,7 +24,7 @@ namespace apitests
 
         private IConversionService GetConversionService()
         {
-            return null;
+            return new ConversionService(_mockExchangeRateService, _mockAccountService);
         }
 
         [TestMethod]
